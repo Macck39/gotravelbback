@@ -39,30 +39,28 @@ export const cabRequest = async (req, res) => {
     const formData = req.body;
     // console.log(formData);
 
-    // const resp = await sendEmail(formData);
+    const resp = await sendEmail(formData);
 
-    // if (resp.success) {
-    //   const newUser = new CabRequest({
-    //     name: formData.name,
-    //     head: formData.head,
-    //     phoneno: formData.phoneNo,
-    //     pickup: formData.pickup,
-    //     drop: formData.drop,
-    //     distance: formData.distance,
-    //     pDate: formData.pDate,
-    //     pTime: formData.pTime
-    //   });
+    if (resp.success) {
+      const newUser = new CabRequest({
+        name: formData.name,
+        head: formData.head,
+        phoneno: formData.phoneNo,
+        pickup: formData.pickup,
+        drop: formData.drop,
+        distance: formData.distance,
+        pDate: formData.pDate,
+        pTime: formData.pTime
+      });
 
-    //   await newUser.save();
-    //   // console.log(formData, "formdata backend");
-    //   res.status(201).send({ message: 'Form data saved and email sent successfully.' });
+      await newUser.save();
+      // console.log(formData, "formdata backend");
+      res.status(201).send({ message: 'Form data saved and email sent successfully.' });
 
-    // } else {
-    //   // If the email was not sent successfully, handle the error or send an appropriate response
-    //   res.status(500).send({ error: 'Failed to send email.' });
-    // }
-          res.status(201).send({ message: 'Form data saved and email sent successfully.' });
-
+    } else {
+      // If the email was not sent successfully, handle the error or send an appropriate response
+      res.status(500).send({ error: 'Failed to send email.' });
+    }
 
   } catch (err) {
     console.error(err);
